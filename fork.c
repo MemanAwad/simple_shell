@@ -29,7 +29,7 @@ int _fork(char *cmd, char **arg)
 			cmd = NULL, arg = NULL;
 			exit(2);
 		}
-		free(cmd), free(arg);
+		free(cmd), free(arg[0]), free(arg);
 		cmd = NULL, arg = NULL;
 
 	}
