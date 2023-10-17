@@ -33,7 +33,7 @@ char **_tok(char *str, char *delm, int num);
 int _fork(char *cmd, char **arg);
 void freeEnv(char **env);
 
-/*==============BUILT_IN====================*/
+/*==============BUILT_IN=====================*/
 
 void exitshell(int status);
 int handle_exit(char *command, char *str, int n);
