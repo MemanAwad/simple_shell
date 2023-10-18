@@ -40,6 +40,8 @@ void exitshell(int status);
 int handle_exit(char *command, char *str, int n);
 int check(char *str);
 void _env(void);
+int handle_cd(char *command, char *path, int n);
+int _cd(char *path);
 
 /*============STRING FUNCTIONS===============*/
 
