@@ -11,7 +11,7 @@ int _cd(char *path)
 
 int handle_cd(char *command, char *path, int n)
 {
-	char *p = NULL;
+	char *p = NULL, *error = NULL;
 	(void)command;
 	if (n == 1)
 	{
@@ -24,18 +24,21 @@ int handle_cd(char *command, char *path, int n)
 	{
 		if (_strcmp(path,"-") == 0)
 		{
-			p = _getenv("OLDPWD");
+			p = getenv("OLDPWD");
 			_cd(p);
-			free(p);
 			return (0);
 		}
 		else
 		{
-			p = _getenv(path);
+			p = getenv(path);
 			_cd(p);
-			free(p);
 			return (0);
 		}
+	}
+	else 
+	{
+		error = "bash: cd: too many arguments\n";
+		write(STDERR_FILENO, error, _strlen(error));
 	}
 	return (0);
 
