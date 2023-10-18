@@ -22,9 +22,17 @@ void nointershell(int ac, char **av)
 		s = getcmd(str);
 		if (s == NULL)
 		{
-			handle_command2(str, s, av[0]);
-			free(s);
-			continue;
+			if (str[0] == '#')
+			{
+				free(str), free(s);
+				continue;
+			}
+			else 
+			{
+				handle_command2(str, s, av[0]);
+				free(s);
+				continue;
+			}
 		}
 		what = parsecmd(str, s);
 		if (what > 0)
@@ -46,6 +54,7 @@ void nointershell(int ac, char **av)
 		s = str = fullpath = str2 = NULL;
 
 		_fork(cmdpath, k);
+
 	}
 }
 

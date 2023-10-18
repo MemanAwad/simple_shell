@@ -24,9 +24,17 @@ void intershell(int ac, char **av)
 		s = getcmd(str);
 		if (s == NULL)
 		{
-			handle_command(str, delm);
-			free(s);
-			continue;
+			if (str[0] == '#')
+			{
+				free(str), free(s);;
+				continue;
+			}
+			else
+			{
+				handle_command(str, delm);
+				free(s);
+				continue;
+			}
 		}
 		what = parsecmd(str, s);
 		if (what > 0)

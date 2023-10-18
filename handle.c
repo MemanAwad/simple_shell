@@ -101,6 +101,8 @@ char **_tok(char *str, char *delm, int num)
 	token = strtok(str, delm);
 	while (token != NULL)
 	{
+		if (_strchr(token,'#'))
+			break;
 		tokens[i] = token;
 		token = strtok(NULL, delm);
 		i++;
