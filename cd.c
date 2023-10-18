@@ -12,34 +12,58 @@ int _cd(char *path)
 int handle_cd(char *command, char *path, int n)
 {
 	char *p = NULL;
+	char *token, *error;
+	char *strr = _strdup(path);
+
 	(void)command;
+	token = _strtok(strr, " \t\n");
+	token = _strtok(NULL, " \t\n");
 	if (n == 1)
 	{
 		p = _getenv("HOME");
-		_cd(p);
+		chdir(p);
+		write(STDOUT_FILENO, p, _strlen(p));
+		error = "\n";
+		write(STDOUT_FILENO, error, _strlen(error));
+		free(strr);
 		free(p);
 		return (0);
 	}
 	else if (n == 2)
 	{
-		if (_strcmp(path,"-") == 0)
+		if (_strcmp(token, "-") == 0)
 		{
 			p = _getenv("OLDPWD");
 			_cd(p);
-			free(p);
+			write(STDOUT_FILENO, p, _strlen(p));
+			error = "\n";
+			write(STDOUT_FILENO, error, _strlen(error));
+			free(strr), free(p);
 			return (0);
 		}
 		else
 		{
-			p = _getenv(path);
-			_cd(p);
-			free(p);
-			return (0);
+			if (access(token, X_OK) == 0)
+			{
+				_cd(token);
+				write(STDOUT_FILENO, token, _strlen(token));
+				error = "\n";
+				write(STDOUT_FILENO, error, _strlen(error));
+				free(strr);
+				return (0);
+			}
+			else
+			{
+				error = "./hsh: 1: cd: can't cd to ";
+				write(STDERR_FILENO, error, _strlen(error));
+				write(STDERR_FILENO, token, _strlen(token));
+				error = "\n";
+				write(STDERR_FILENO, error, _strlen(error));
+			}
 		}
 	}
+	free(strr);
 	return (0);
-
-
 }
 
 
