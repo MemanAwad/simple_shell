@@ -51,7 +51,7 @@ int commands(char *cmd)
 	char **cmdarray = NULL;
 	int i = 0;
 
-	cmdarray = malloc(sizeof(char **) * 13 * (sizeof(char)));
+	cmdarray = malloc(sizeof(char **) * 14 * (sizeof(char)));
 	cmdarray[i++] = _strdup("ls");
 	cmdarray[i++] = _strdup("cp");
 	cmdarray[i++] = _strdup("mv");
@@ -63,6 +63,7 @@ int commands(char *cmd)
 	cmdarray[i++] = _strdup("ps");
 	cmdarray[i++] = _strdup("kill");
 	cmdarray[i++] = _strdup("env");
+	cmdarray[i++] = _strdup("cd");
 	cmdarray[i++] = _strdup("exit");
 	cmdarray[i++] = NULL;
 
@@ -123,8 +124,14 @@ int parsecmd(char *str, char *command)
 		value = 4, free(str2);
 		return (value);
 	}
+	else if (_strcmp(command, "cd") == 0)
+	{
+		free (str2), value = handle_cd(command, str, count);
+		return (value + 3);
+	}
 	else
 		value = 0;
 	free(str2);
+	str2 = NULL;
 	return (value);
 }
