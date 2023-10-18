@@ -16,8 +16,8 @@ char *getpath(char **env)
 
 	while (env[i] != NULL)
 	{
-		name = strtok(env[i], delm);
-		token = strtok(NULL, delm);
+		name = _strtok(env[i], delm);
+		token = _strtok(NULL, delm);
 
 		if (_strcmp(name, "PATH") == 0)
 		{

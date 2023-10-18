@@ -43,7 +43,7 @@ void nointershell(int ac, char **av)
 		str2 = malloc(sizeof(char) * (_strlen(str) + 1));
 		_strcpy(str2, str);
 		tok_num = tok_nums(str, delm);
-		token = strtok(str2, delm);
+		token = _strtok(str2, delm);
 		fullpath = _getenv("PATH");
 		cmdpath = getpathvalue(fullpath, token);
 		strr = malloc(sizeof(char) * (_strlen(str) + 1));

@@ -45,6 +45,7 @@ void _env(void);
 int _atoi(const char *str);
 char *_strchr(const char *str, int c);
 char *_strtok(char *string, const char *delim);
+int isdelim(const char *delim, char c);
 int _strlen(char *str);
 int _strcmp(char *str1, char *str2);
 char *_strdup(char *str);

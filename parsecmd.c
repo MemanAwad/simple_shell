@@ -13,7 +13,7 @@ char *getcmd(char *str)
 	struct stat obj;
 
 	comand = _strdup(str);
-	token = strtok(comand, delm);
+	token = _strtok(comand, delm);
 	if (token == NULL)
 	{
 		free(strcopy);
@@ -27,7 +27,7 @@ char *getcmd(char *str)
 	}
 	free(comand);
 	_strcpy(strcopy, str);
-	cmd = strtok(strcopy, delm);
+	cmd = _strtok(strcopy, delm);
 	if (commands(cmd))
 	{
 		result = malloc(sizeof(char) * (_strlen(cmd) + 1));
@@ -96,10 +96,10 @@ int parsecmd(char *str, char *command)
 
 	str2 = malloc(sizeof(char) * (_strlen(str) + 1));
 	_strcpy(str2, str);
-	token = strtok(str2, delm);
+	token = _strtok(str2, delm);
 	while (token != NULL)
 	{
-		count++, token = strtok(NULL, delm);
+		count++, token = _strtok(NULL, delm);
 	}
 	if (count == 0)
 	{

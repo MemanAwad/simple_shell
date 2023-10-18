@@ -23,6 +23,26 @@ void _env(void)
 	}
 }
 /**
+ * isdelim - function checks if the given charachter is a delimiter
+ * @delim: the string of the delimiter charachters
+ * @c: the char to be checked if he is a dilimiter or not
+ *
+ * Return: 0 if c is not a delimiter 1 if it is
+ */
+int isdelim(const char *delim, char c)
+{
+	int i = 0;
+	int len = strlen(delim);
+
+	while (i < len)
+	{
+		if (delim[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+/**
  * _strtok - function that tokenizing the string based on a given
  * delimiter if the string is null it will continue tkenizing
  * lastest string
@@ -31,45 +51,45 @@ void _env(void)
  *
  * Return: the first token of the string
  */
+
 char *_strtok(char *string, const char *delim)
 {
 	static char *ptr;
 	char *start = NULL;
 	int i = 0;
-	char c = 0;
 
-	if (string != NULL)
-	{
-		ptr = string;
-	}
-	else
-	{
+	if (string == NULL)
 		string = ptr;
-	}
+	else
+		ptr = string;
+
+	if (string == NULL)
+		return (NULL);
+
 	while (string[i] != '\0')
 	{
-		c = string[i];
-
-		if (_strchr(delim, c) == 0)
-		{
-			start = &string[i];
+		if (isdelim(delim, string[i]))
 			i++;
+		else
 			break;
+	}
+	if (string[i] == '\0')
+		return (NULL);
+	start = &string[i++];
+	while (1)
+	{
+		if (string[i] == '\0')
+		{
+			ptr = &string[i];
+			return (start);
 		}
-	}
-	c = string[i];
-	while ((_strchr(delim, c) == 0))
-	{
+		if (isdelim(delim, string[i]))
+		{
+			string[i] = '\0';
+			ptr = &string[i + 1];
+			return (start);
+		}
 		i++;
-		c = string[i];
 	}
-	string[i++] = '\0';
-	c = string[i];
-	while (!(_strchr(delim, c) == 0) && c != '\0')
-	{
-		i++;
-		c = string[i];
-	}
-	ptr = &string[i];
-	return (start);
+
 }

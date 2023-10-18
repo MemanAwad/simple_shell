@@ -20,8 +20,8 @@ char *_getenv(char *variable)
 	while (env[i] != NULL)
 	{
 		temp = _strdup(env[i]);
-		name = strtok(temp, delm);
-		token = strtok(NULL, delm);
+		name = _strtok(temp, delm);
+		token = _strtok(NULL, delm);
 
 
 		if (_strcmp(name, variable) == 0)
@@ -62,7 +62,7 @@ char *getpathvalue(char *path, char *a)
 		return (fullpath);
 	}
 	_strcpy(pathcopy, path);
-	token = strtok(pathcopy, delm);
+	token = _strtok(pathcopy, delm);
 	while (token != NULL)
 	{
 		fullpath = malloc(sizeof(char) * (_strlen(token) + _strlen(a) + 2));
@@ -78,7 +78,7 @@ char *getpathvalue(char *path, char *a)
 		{
 			free(fullpath);
 			fullpath = NULL;
-			token = strtok(NULL, delm);
+			token = _strtok(NULL, delm);
 		}
 
 	}

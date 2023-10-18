@@ -12,7 +12,7 @@ void handle_command(char *str, char *delm)
 	char *token = NULL;
 	char *error = ": command not found\n";
 	(void)delm;
-	token = strtok(str, delm);
+	token = _strtok(str, delm);
 	if (token != NULL)
 	{
 		write(STDERR_FILENO, token, _strlen(token));
@@ -33,7 +33,7 @@ void handle_command(char *str, char *delm)
 void handle_command2(char *str, char *s, char *arg)
 {
 	char *error = ": 1: ";
-	char *token = strtok(str, " \t\n");
+	char *token = _strtok(str, " \t\n");
 
 	(void)s;
 	if (token != NULL)
@@ -72,11 +72,11 @@ int tok_nums(char *str, char *delm)
 
 	strcopy = malloc(sizeof(char) * (_strlen(str) + 1));
 	_strcpy(strcopy, str);
-	token = strtok(strcopy, delm);
+	token = _strtok(strcopy, delm);
 
 	while (token != NULL)
 	{
-		token = strtok(NULL, delm);
+		token = _strtok(NULL, delm);
 		count++;
 	}
 	free(strcopy);
@@ -98,13 +98,13 @@ char **_tok(char *str, char *delm, int num)
 	char *token = NULL;
 	int i = 0;
 
-	token = strtok(str, delm);
+	token = _strtok(str, delm);
 	while (token != NULL)
 	{
 		if (_strchr(token,'#'))
 			break;
 		tokens[i] = token;
-		token = strtok(NULL, delm);
+		token = _strtok(NULL, delm);
 		i++;
 	}
 	tokens[i] = NULL;

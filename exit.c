@@ -54,8 +54,8 @@ int handle_exit(char *command, char *str, int n)
 	else if (count > 1)
 	{
 
-		token = strtok(strcopy, delm);
-		token = strtok(NULL, delm);
+		token = _strtok(strcopy, delm);
+		token = _strtok(NULL, delm);
 		checkk = check(token);
 		if  (checkk == 0)
 		{
