@@ -1,6 +1,29 @@
 #include "main.h"
 
 /**
+ * errmsg - function ti print error msg in STDERR
+ * @str: string used in the message
+ *
+ * Return: void
+ */
+void errmsg(char *str)
+{
+	char *error;
+	char *err;
+	char *token;
+
+	err = _strdup(str);
+	token = _strtok(err, " \n\t");
+	token = _strtok(NULL, " \n\t");
+	error = "./hsh: 1: exit: Illegal number: ";
+	write(STDERR_FILENO, error, _strlen(error));
+	write(STDERR_FILENO, token, _strlen(token));
+	error = "\n";
+	write(STDERR_FILENO, error, _strlen(error));
+	free(err);
+
+}
+/**
  * check - function to check if the string contains just numbers
  * @str: the string
  *
@@ -63,18 +86,19 @@ int handle_exit(char *command, char *str, int n)
 			{
 				error = "-bash: exit: too many arguments\n";
 				write(STDERR_FILENO, error, _strlen(error));
-				free(strcopy);
-				return (value);
+				free(strcopy), return (value);
 			}
-
 			exitval = _atoi(token);
+			if (exitval < 0)
+			{
+				errmsg(str), free(strcopy), return(3);
+			}
 			free(str), free(strcopy), free(command);
 			exitshell(exitval);
 		}
 		else
 		{
-			free(str), free(command), free(strcopy);
-			exitshell(0);
+			errmsg(str), free(strcopy), return(3);
 		}
 	}
 	return (3);
