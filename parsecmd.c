@@ -90,14 +90,11 @@ int commands(char *cmd)
 
 int parsecmd(char *str, char *command)
 {
-	char *token, *delm = " \t\n";
+	char *token, *delm = " \t\n", *str2 = NULL, *error = NULL;
 	int value = -1, count = 0;
-	char *str2 = NULL;
-	char *error = NULL;
 
 	str2 = malloc(sizeof(char) * (_strlen(str) + 1));
-	_strcpy(str2, str);
-	token = _strtok(str2, delm);
+	_strcpy(str2, str), token = _strtok(str2, delm);
 	while (token != NULL)
 	{
 		count++, token = _strtok(NULL, delm);
@@ -126,12 +123,11 @@ int parsecmd(char *str, char *command)
 	}
 	else if (_strcmp(command, "cd") == 0)
 	{
-		free (str2), value = handle_cd(command, str, count);
+		free(str2), value = handle_cd(command, str, count);
 		return (value + 3);
 	}
 	else
 		value = 0;
-	free(str2);
-	str2 = NULL;
+	free(str2), str2 = NULL;
 	return (value);
 }
