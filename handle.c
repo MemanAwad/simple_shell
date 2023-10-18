@@ -47,7 +47,7 @@ void handle_command2(char *str, char *s, char *arg)
 		free(s);
 
 		exit(127);
-	}	
+	}
 	else
 	{
 		free(str);
