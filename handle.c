@@ -101,7 +101,7 @@ char **_tok(char *str, char *delm, int num)
 	token = _strtok(str, delm);
 	while (token != NULL)
 	{
-		if (_strchr(token,'#'))
+		if (_strchr(token, '#'))
 			break;
 		tokens[i] = token;
 		token = _strtok(NULL, delm);
@@ -109,4 +109,30 @@ char **_tok(char *str, char *delm, int num)
 	}
 	tokens[i] = NULL;
 	return (tokens);
+}
+/**
+ * tokens - function that is modorate the work of the shell
+ * @str: the command
+ *
+ * Return: void
+ */
+void tokens(char *str)
+{
+	char *cmdpath = NULL, *fullpath = NULL, *str2;
+	int tok_num = 0;
+	char **tokens = NULL, *strr = NULL;
+	char *delm = " \t\n", *token = NULL;
+
+	str2 = _strdup(str);
+	tok_num = tok_nums(str, delm);
+
+	fullpath = _getenv("PATH");
+	token = _strtok(str2, delm);
+	cmdpath = getpathvalue(fullpath, token);
+
+	strr = _strdup(str);
+	tokens = _tok(strr, delm, tok_num);
+	free(fullpath), free(str), free(str2);
+	str = fullpath = str2 = NULL;
+	_fork(cmdpath, tokens);
 }

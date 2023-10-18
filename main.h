@@ -32,6 +32,7 @@ int tok_nums(char *str, char *delm);
 char **_tok(char *str, char *delm, int num);
 int _fork(char *cmd, char **arg);
 void freeEnv(char **env);
+void tokens(char *str);
 
 /*==============BUILT_IN=====================*/
 

@@ -17,7 +17,6 @@ int _fork(char *cmd, char **arg)
 	pid = fork();
 	if (pid == 0)
 	{
-			
 		execve(cmd, arg, env);
 	}
 	else
@@ -35,7 +34,7 @@ int _fork(char *cmd, char **arg)
 		free(arg[0]);
 		arg[0] = NULL;
 		free(arg);
-		cmd= NULL, arg = NULL;
+		cmd = NULL, arg = NULL;
 
 
 	}
