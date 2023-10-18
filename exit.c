@@ -63,12 +63,9 @@ void exitshell(int status)
 int handle_exit(char *command, char *str, int n)
 {
 	int count = n, exitval, value = 1, checkk = 1;
-	char *token = NULL, *delm = " \n";
-	char *strcopy = NULL, *error = NULL;
+	char *token = NULL, *delm = " \n", *strcopy, *error;
 
-	strcopy = malloc(sizeof(char) * (_strlen(str) + 1));
-	_strcpy(strcopy, str);
-
+	strcopy = _strdup(str);
 	if (count == 1)
 	{
 		free(str), free(command), free(strcopy);
@@ -86,19 +83,21 @@ int handle_exit(char *command, char *str, int n)
 			{
 				error = "-bash: exit: too many arguments\n";
 				write(STDERR_FILENO, error, _strlen(error));
-				free(strcopy), return (value);
+				free(strcopy);
+				return (value);
 			}
 			exitval = _atoi(token);
 			if (exitval < 0)
 			{
-				errmsg(str), free(strcopy), return(3);
+				errmsg(str), free(strcopy);
+				return (3);
 			}
-			free(str), free(strcopy), free(command);
-			exitshell(exitval);
+			free(str), free(strcopy), free(command), exitshell(exitval);
 		}
 		else
 		{
-			errmsg(str), free(strcopy), return(3);
+			errmsg(str), free(strcopy);
+			return (3);
 		}
 	}
 	return (3);
