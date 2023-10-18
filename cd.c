@@ -33,7 +33,7 @@ int handle_cd(char *command, char *path, int n)
 	{
 		if (_strcmp(token, "-") == 0)
 		{
-			p = _getenv("OLDPWD");
+			p = getenv("OLDPWD");
 			_cd(p);
 			write(STDOUT_FILENO, p, _strlen(p));
 			error = "\n";
@@ -61,6 +61,11 @@ int handle_cd(char *command, char *path, int n)
 				write(STDERR_FILENO, error, _strlen(error));
 			}
 		}
+	}
+	else 
+	{
+		error = "bash: cd: too many arguments\n";
+		write(STDERR_FILENO, error, _strlen(error));
 	}
 	free(strr);
 	return (0);
