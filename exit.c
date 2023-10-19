@@ -69,6 +69,7 @@ void exitshell(int status)
  * handle_exit - function to handle the exit command in the shell
  * @str: the command used to exit the shell
  * @n: number of argument to exit command
+ * @av: the array of argument
  * @command: the exit command
  * Return: integer value large than 1 if there is error
  */
