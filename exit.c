@@ -3,10 +3,10 @@
 /**
  * errmsg - function ti print error msg in STDERR
  * @str: string used in the message
- *
+ * @av: array of arguments
  * Return: void
  */
-void errmsg(char *str)
+void errmsg(char *str, char **av)
 {
 	char *error;
 	char *err;
@@ -15,11 +15,23 @@ void errmsg(char *str)
 	err = _strdup(str);
 	token = _strtok(err, " \n\t");
 	token = _strtok(NULL, " \n\t");
-	error = "./hsh: 1: exit: Illegal number: ";
-	write(STDERR_FILENO, error, _strlen(error));
-	write(STDERR_FILENO, token, _strlen(token));
-	error = "\n";
-	write(STDERR_FILENO, error, _strlen(error));
+	if (isatty(STDIN_FILENO) == 1)
+	{
+		error = "exit: Illegal number: ";
+		write(STDERR_FILENO, error, _strlen(error));
+		write(STDERR_FILENO, token, _strlen(token));
+		error = "\n";
+		write(STDERR_FILENO, error, _strlen(error));
+	}
+	else
+	{	error = ": 1: exit: Illegal number: ";
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, error, _strlen(error));
+		write(STDERR_FILENO, token, _strlen(token));
+		error = "\n";
+		write(STDERR_FILENO, error, _strlen(error));
+
+	}
 	free(err);
 
 }
@@ -60,7 +72,7 @@ void exitshell(int status)
  * @command: the exit command
  * Return: integer value large than 1 if there is error
  */
-int handle_exit(char *command, char *str, int n)
+int handle_exit(char *command, char *str, int n, char **av)
 {
 	int count = n, exitval, value = 1, checkk = 1;
 	char *token = NULL, *delm = " \n", *strcopy, *error;
@@ -89,14 +101,14 @@ int handle_exit(char *command, char *str, int n)
 			exitval = _atoi(token);
 			if (exitval < 0)
 			{
-				errmsg(str), free(strcopy);
+				errmsg(str, av), free(strcopy);
 				return (3);
 			}
 			free(str), free(strcopy), free(command), exitshell(exitval);
 		}
 		else
 		{
-			errmsg(str), free(strcopy);
+			errmsg(str, av), free(strcopy);
 			return (3);
 		}
 	}

@@ -83,12 +83,13 @@ int commands(char *cmd)
 /**
  * parsecmd - a function that parse if the command is exist or not
  * @str: input from terminal
+ * @av: array of arguments
  * @command: the command
  * Return: 1 in failure
  */
 
 
-int parsecmd(char *str, char *command)
+int parsecmd(char *str, char *command, char **av)
 {
 	char *token, *delm = " \t\n", *str2 = NULL, *error = NULL;
 	int value = -1, count = 0;
@@ -106,7 +107,7 @@ int parsecmd(char *str, char *command)
 	}
 	else if ((_strcmp(command, "exit") == 0))
 	{
-		free(str2), value = handle_exit(command, str, count);
+		free(str2), value = handle_exit(command, str, count, av);
 		return (value);
 	}
 	else if (_strcmp(command, "env") == 0)

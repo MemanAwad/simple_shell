@@ -25,7 +25,7 @@ int commands(char *cmd);
 /*===================HANDLE==================*/
 
 char *getcmd(char *str);
-int parsecmd(char *str, char *command);
+int parsecmd(char *str, char *command, char **av);
 void handle_command(char *str, char *delm);
 void handle_command2(char *str, char *s, char *arg);
 int tok_nums(char *str, char *delm);
@@ -33,14 +33,14 @@ char **_tok(char *str, char *delm, int num);
 int _fork(char *cmd, char **arg);
 void freeEnv(char **env);
 void tokens(char *str);
-void errmsg(char *str);
+void errmsg(char *str, char **av);
 int handle_cd2(char *str);
 
 
 /*==============BUILT_IN=====================*/
 
 void exitshell(int status);
-int handle_exit(char *command, char *str, int n);
+int handle_exit(char *command, char *str, int n, char **av);
 int check(char *str);
 void _env(void);
 int handle_cd(char *command, char *path, int n);

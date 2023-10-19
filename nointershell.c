@@ -32,7 +32,7 @@ void nointershell(int ac, char **av)
 				continue;
 			}
 		}
-		what = parsecmd(str, s);
+		what = parsecmd(str, s, av);
 		if (what > 0)
 		{
 			free(s), free(str);
